@@ -1,0 +1,6 @@
+#Instrcutions
+
+2 Player:
+  
+  W/S - Left Player
+  Up/Down Arrow Keys - Right Player
