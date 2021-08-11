@@ -27,16 +27,26 @@ class GameSprite(sprite.Sprite):
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
-class Player(GameSprite):
+class LeftPlayer(GameSprite):
     def update(self):
+        keys = key.get_pressed()
+        if keys[K_w] and self.rect.y > 0:
+            self.rect.y -= self.speed
+        if keys[K_s] and self.rect.y < win_height - paddle_height:
+            self.rect.y += self.speed
+
+class RightPlayer(GameSprite):
+    def update(self):
+        pass
         keys = key.get_pressed()
         if keys[K_UP] and self.rect.y > 0:
             self.rect.y -= self.speed
-        if keys[K_DOWN] and self.rect.y < win_width - paddle_height:
+        if keys[K_DOWN] and self.rect.y < win_height - paddle_height:
             self.rect.y += self.speed
 
 #Creating All Sprites
-player = Player("Paddle.png", 0, 0, paddle_width, paddle_height, 5)
+l_player = LeftPlayer("Paddle.png",  10, 0, paddle_width, paddle_height, 5)
+r_player = RightPlayer("Paddle.png", win_width - paddle_width - 10, 0, paddle_width, paddle_height, 5)
 
 #Game Loop
 while running:
@@ -45,7 +55,9 @@ while running:
             running = False
     window.fill((37, 150, 190))
 
-    player.update()
-    player.reset()
+    l_player.update()
+    l_player.reset()
+    r_player.update()
+    r_player.reset()
     display.update()
     clock.tick(FPS)
